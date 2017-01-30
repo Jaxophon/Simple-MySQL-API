@@ -1,0 +1,5 @@
+name: Simple MySQL API
+author: Jaxophon
+version: 0.0.1
+description: This is the easiest MySQL API!
+main: de.jaxophon.mysql.main.Main
