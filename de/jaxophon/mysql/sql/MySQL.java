@@ -39,7 +39,7 @@ public class MySQL {
 			System.out.println("[MySQLAPI] Es fehlen benoetigte Klassen!");
 			e1.printStackTrace();
 		}
-		String url = "jdbc:mysql://" + this.Host + ":3306/" + this.Database;
+		String url = "jdbc:mysql://" + this.Host + ":3306/" + this.Database + "?autoReconnect=true";
 		try {
 			this.connection = DriverManager.getConnection(url, this.Username, this.Password);
 		} catch (SQLException e2) {
@@ -64,6 +64,20 @@ public class MySQL {
 		}
 	}
 
+	public boolean isConnected() {
+		try {
+			if (this.connection.isClosed()) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (SQLException e2) {
+			System.out.println("[MySQLAPI] Fehler 02");
+			System.out.println("[MySQLAPI] Es ist ein Fehler bei der Verbindung aufgetreten!");
+			e2.printStackTrace();
+		}
+		return false;	}
+	
 	public ResultSet GetResult(String command) {
 		try {
 			if (this.connection.isClosed()) {
@@ -90,10 +104,10 @@ public class MySQL {
 			}
 			Statement st = this.connection.createStatement();
 			st.executeUpdate(command);
-		} catch (SQLException e5) {
+		} catch (SQLException e4) {
 			System.out.println("[MySQLAPI] Fehler 04");
 			System.out.println("[MySQLAPI] Es ist ein Fehler beim Ausfuehren des Befehls aufgetreten!");
-			e5.printStackTrace();
+			e4.printStackTrace();
 		}
 
 	}

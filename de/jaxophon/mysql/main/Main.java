@@ -2,8 +2,6 @@ package de.jaxophon.mysql.main;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.jaxophon.mysql.sql.MySQL;
-
 /**
  * @author Jan Scheel
  * @version 0.0.1
@@ -17,7 +15,6 @@ import de.jaxophon.mysql.sql.MySQL;
 public class Main extends JavaPlugin {
 
 	public static Main main;
-	public MySQL mysql;
 
 	@Override
 	public void onEnable() {
