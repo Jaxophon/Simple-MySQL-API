@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 /**
  * @author Jan Scheel
- * @version 0.0.1
+ * @version 0.0.3
  * @category Database & Connection
  * @since 29.01.2017
  * 
@@ -23,6 +23,16 @@ public class MySQL {
 	private String Password;
 	private Connection connection;
 
+	/**
+	 * @param host
+	 *            The ip or domain of the MySQL Server
+	 * @param database
+	 *            The database you would like to use
+	 * @param username
+	 *            The login username
+	 * @param password
+	 *            The login password
+	 */
 	public MySQL(String host, String database, String username, String password) {
 		this.Host = host;
 		this.Database = database;
@@ -39,7 +49,9 @@ public class MySQL {
 			System.out.println("[MySQLAPI] Es fehlen benoetigte Klassen!");
 			e1.printStackTrace();
 		}
-		String url = "jdbc:mysql://" + this.Host + ":3306/" + this.Database + "?autoReconnect=true";
+		String url = "jdbc:mysql://" + this.Host + ":3306/" + this.Database + "?verifyServerCertificate=false&useSSL=true";
+		// 		String url = "jdbc:mysql://" + this.Host + ":3306/" + this.Database + "?autoReconnect=true";
+
 		try {
 			this.connection = DriverManager.getConnection(url, this.Username, this.Password);
 		} catch (SQLException e2) {
@@ -76,8 +88,13 @@ public class MySQL {
 			System.out.println("[MySQLAPI] Es ist ein Fehler bei der Verbindung aufgetreten!");
 			e2.printStackTrace();
 		}
-		return false;	}
-	
+		return false;
+	}
+
+	/**
+	 * @param command
+	 *            The query you would like to execute
+	 */
 	public ResultSet GetResult(String command) {
 		try {
 			if (this.connection.isClosed()) {
@@ -97,6 +114,10 @@ public class MySQL {
 		return null;
 	}
 
+	/**
+	 * @param command
+	 *            The query you would like to execute
+	 */
 	public void ExecuteCommand(String command) {
 		try {
 			if (this.connection.isClosed()) {
